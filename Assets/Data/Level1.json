@@ -1,0 +1,14 @@
+{
+  "id": 1,
+  "levelRequireMents": [
+    {
+      "jellyColor": 1,
+      "amount": 4
+    },
+    {
+      "jellyColor": 3,
+      "amount": 4
+    }
+  ],
+  "colors": [ 1, 2, 3, 5 ]
+}
