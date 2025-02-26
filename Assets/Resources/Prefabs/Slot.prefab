@@ -192,7 +192,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.105882354}
+  m_Color: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -250,6 +250,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   container: {fileID: 1868061316164614819}
+  outline: {fileID: 4066348509431572900}
+  outlineColor: {r: 0.39607844, g: 0.39607844, b: 0.39607844, a: 1}
+  outlineSelectColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &3556194745528527645
 BoxCollider:
   m_ObjectHideFlags: 0

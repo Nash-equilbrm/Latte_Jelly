@@ -28,13 +28,19 @@ namespace Game
         private StateMachine<GameManager> _stateMachine = new();
         private InitState _initState;
         private InitLevelState _initLevelState;
+        private GameplayState _gameplayState;
         #endregion
-        
+
+
+        public List<GameObject> initAfterPubSub;
+
+
         
         private void Start()
         {
             _initState = new(this);
             _initLevelState = new(this);
+            _gameplayState = new(this);
 
             _stateMachine.Initialize(_initState);
         }
@@ -44,10 +50,13 @@ namespace Game
         {
             _stateMachine.ChangeState(_initLevelState);
         }
-        
 
+        internal void ChangeToGameplayState()
+        {
+            _stateMachine.ChangeState(_gameplayState);
+        }
         #endregion
-       
+
     }
 
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8815340188441977336}
   m_Layer: 0
   m_Name: JellyBlock
-  m_TagString: Untagged
+  m_TagString: Jelly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3412729969092334778}
   m_Layer: 0
   m_Name: JellyBlock
-  m_TagString: Untagged
+  m_TagString: Jelly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 2727398533845745621}
   m_Layer: 0
   m_Name: Jelly
-  m_TagString: Untagged
+  m_TagString: Jelly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,6 +116,7 @@ MonoBehaviour:
   <Y>k__BackingField: 0
   _cube: {fileID: 3935476642586651706}
   _cubeRenderer: {fileID: 8786253697206321827}
+  _raycastDistance: 2
 --- !u!1 &5732582183610623572
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +129,7 @@ GameObject:
   - component: {fileID: 9149314618605737510}
   m_Layer: 0
   m_Name: Jelly
-  m_TagString: Untagged
+  m_TagString: Jelly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -168,6 +169,7 @@ MonoBehaviour:
   <Y>k__BackingField: 0
   _cube: {fileID: 11839961103734227}
   _cubeRenderer: {fileID: 3662437651649686865}
+  _raycastDistance: 2
 --- !u!1 &8350640320352547837
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,10 +181,9 @@ GameObject:
   - component: {fileID: 5975042726178317358}
   - component: {fileID: 2544824151827690137}
   - component: {fileID: -2033541154596437878}
-  - component: {fileID: -298264333193841339}
   m_Layer: 0
   m_Name: Block2_2
-  m_TagString: Untagged
+  m_TagString: Jelly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -216,14 +217,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7ede3b1bd9ea3408bae520a235bc67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subBlockPrefab: {fileID: 592019721814628687, guid: fffbaf900b83c164b99fd3429561a913,
-    type: 3}
   _subBlocks:
   - {fileID: 9149314618605737510}
   - {fileID: 2727398533845745621}
+  _speed: 20
+  _blockTypeTag: block2_2
   <Height>k__BackingField: 2
   <Width>k__BackingField: 2
-  toRemove: {fileID: 0}
+  <DroppedToSlot>k__BackingField: 0
 --- !u!65 &-2033541154596437878
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -241,25 +242,10 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1.8, y: 1, z: 1.8}
   m_Center: {x: 1, y: 0, z: -1}
---- !u!114 &-298264333193841339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8350640320352547837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4cd1d6947cdc417aa8e1e4d55526648, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DragLayerName: Ignore Raycast
-  DragSpeed: 20
-  DragDistance: 0
 --- !u!1001 &2671199736936722901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -271,17 +257,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 50
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 50
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 50
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
@@ -338,10 +324,20 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_Name
       value: jellyCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Jelly
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -351,6 +347,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1767386021741001646}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7151252236057729368}
   m_SourcePrefab: {fileID: 100100000, guid: 4c7a8a980a7e4bf469a383fd371318d8, type: 3}
 --- !u!33 &1528797157401336219 stripped
 MeshFilter:
@@ -389,6 +389,27 @@ MonoBehaviour:
   MaxStretch: 0.5
   _renderer: {fileID: 3662437651649686865}
   _meshFilter: {fileID: 1528797157401336219}
+--- !u!65 &7151252236057729368
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3013871133653453956}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &3662437651649686865 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 4c7a8a980a7e4bf469a383fd371318d8,
@@ -406,17 +427,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 50
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 50
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 50
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
@@ -473,10 +494,20 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_Name
       value: jellyCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Jelly
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -486,6 +517,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 9057015789787215747}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 99043631049544454}
   m_SourcePrefab: {fileID: 100100000, guid: 4c7a8a980a7e4bf469a383fd371318d8, type: 3}
 --- !u!33 &6776787580573906537 stripped
 MeshFilter:
@@ -518,6 +553,27 @@ MonoBehaviour:
   MaxStretch: 0.5
   _renderer: {fileID: 8786253697206321827}
   _meshFilter: {fileID: 6776787580573906537}
+--- !u!65 &99043631049544454
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7129188725075846006}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &7612253195002051020 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,

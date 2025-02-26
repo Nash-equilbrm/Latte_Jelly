@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6688817919512121311}
   m_Layer: 0
   m_Name: Jelly
-  m_TagString: Untagged
+  m_TagString: Jelly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,6 +52,7 @@ MonoBehaviour:
   <Y>k__BackingField: 1
   _cube: {fileID: 8158512307902333129}
   _cubeRenderer: {fileID: 724454987400241464}
+  _raycastDistance: 2
 --- !u!1 &2036029875676821507
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,7 +64,7 @@ GameObject:
   - component: {fileID: 4747721660329764568}
   m_Layer: 0
   m_Name: JellyBlock
-  m_TagString: Untagged
+  m_TagString: Jelly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +97,7 @@ GameObject:
   - component: {fileID: 6277068077205007843}
   m_Layer: 0
   m_Name: Jelly
-  m_TagString: Untagged
+  m_TagString: Jelly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,6 +137,7 @@ MonoBehaviour:
   <Y>k__BackingField: 0
   _cube: {fileID: 2036029875676821507}
   _cubeRenderer: {fileID: 3411398625204832783}
+  _raycastDistance: 2
 --- !u!1 &6967141731763536018
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,10 +149,9 @@ GameObject:
   - component: {fileID: 4413129157721430775}
   - component: {fileID: 3685801692212845498}
   - component: {fileID: -6243738387279731302}
-  - component: {fileID: -4304880218211106655}
   m_Layer: 0
   m_Name: Block2_1
-  m_TagString: Untagged
+  m_TagString: Jelly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -184,14 +185,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7ede3b1bd9ea3408bae520a235bc67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subBlockPrefab: {fileID: 592019721814628687, guid: fffbaf900b83c164b99fd3429561a913,
-    type: 3}
   _subBlocks:
   - {fileID: 6277068077205007843}
   - {fileID: 6688817919512121311}
+  _speed: 20
+  _blockTypeTag: block2_1
   <Height>k__BackingField: 2
   <Width>k__BackingField: 2
-  toRemove: {fileID: 0}
+  <DroppedToSlot>k__BackingField: 0
 --- !u!65 &-6243738387279731302
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -209,25 +210,10 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1.8, y: 1, z: 1.8}
   m_Center: {x: 1, y: 0, z: -1}
---- !u!114 &-4304880218211106655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6967141731763536018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4cd1d6947cdc417aa8e1e4d55526648, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DragLayerName: Ignore Raycast
-  DragSpeed: 20
-  DragDistance: 0
 --- !u!1 &8158512307902333129
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +225,7 @@ GameObject:
   - component: {fileID: 3394712900296549422}
   m_Layer: 0
   m_Name: JellyBlock
-  m_TagString: Untagged
+  m_TagString: Jelly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -271,17 +257,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 50
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 50
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 50
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
@@ -338,10 +324,20 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_Name
       value: jellyCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Jelly
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -351,6 +347,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4838210714844939779}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5343706309738504941}
   m_SourcePrefab: {fileID: 100100000, guid: 4c7a8a980a7e4bf469a383fd371318d8, type: 3}
 --- !u!23 &724454987400241464 stripped
 MeshRenderer:
@@ -383,6 +383,27 @@ MonoBehaviour:
   MaxStretch: 0.5
   _renderer: {fileID: 724454987400241464}
   _meshFilter: {fileID: 3308228937675478514}
+--- !u!65 &5343706309738504941
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228703733835088109}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1893459240452856407 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
@@ -406,17 +427,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 50
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 50
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 50
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
@@ -473,10 +494,20 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
       propertyPath: m_Name
       value: jellyCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Jelly
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -486,6 +517,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6239590245154012437}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7246912730222890506}
   m_SourcePrefab: {fileID: 100100000, guid: 4c7a8a980a7e4bf469a383fd371318d8, type: 3}
 --- !u!33 &626932391550123717 stripped
 MeshFilter:
@@ -524,6 +559,27 @@ MonoBehaviour:
   MaxStretch: 0.5
   _renderer: {fileID: 3411398625204832783}
   _meshFilter: {fileID: 626932391550123717}
+--- !u!65 &7246912730222890506
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3771558570768247770}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &4547672610481697120 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,

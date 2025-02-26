@@ -8,8 +8,8 @@ namespace Patterns
     {
         OnInitLevel,
 
-        OnStartHoverOnSlot,
-        OnEndHoverOnSlot,
-        OnDropCurrentBlock
+        OnSetBlockToSlot,
+        OnDropToSlot,
+        OnBlockSelected
     }
 }

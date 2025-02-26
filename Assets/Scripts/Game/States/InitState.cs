@@ -51,7 +51,7 @@ namespace Game.States
 
         private void PreparePools()
         {
-            ObjectPooling.Instance.GetPool(Constants.SLOT_TAG).Prepare(20);
+            //ObjectPooling.Instance.GetPool(Constants.SLOT_TAG).Prepare(20);
         }
 
         private IEnumerator IEWaitForSingletons()

@@ -75,6 +75,18 @@ namespace Patterns
                 pool.Clear();
             }
 
+
+            /// <summary>
+            /// Destroy one object from its pool
+            /// </summary>
+            public void DestroyObject(GameObject gameObj)
+            {
+                pool.Remove(gameObj);
+                Destroy(gameObj);
+            }
+            
+
+
             /// <summary>
             /// Recycle all objects in pool
             /// </summary>
@@ -160,7 +172,7 @@ namespace Patterns
         /// Disables the object and moves it under the Pool object
         /// </summary>
         /// <param name="obj">Object to disable</param>
-        public static void Remove(GameObject obj)
+        public static void RemoveToInactive(GameObject obj)
         {
             obj.SetActive(false);
             obj.transform.SetParent(InactiveObjects);

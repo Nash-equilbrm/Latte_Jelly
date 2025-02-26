@@ -25,6 +25,7 @@ namespace  Game.States
             SetUpGameObjects();
             LogUtility.Info("InitLevelState.PubSubBroadcast", "EventID.OnInitLevel");
             _context.PubSubBroadcast(EventID.OnInitLevel, _context.CurrentConfig);
+            _context.ChangeToGameplayState();
         }
 
         public override void Exit()
@@ -34,11 +35,11 @@ namespace  Game.States
 
         private void SetUpGameObjects()
         {
-            if (!_gridSpawner)
+            foreach(var go in _context.initAfterPubSub)
             {
-                _gridSpawner = Resources.FindObjectsOfTypeAll<GridSpawner>().FirstOrDefault();
+                go.SetActive(true);
             }
-            _gridSpawner?.gameObject.SetActive(true);
+
         }
     }
 }

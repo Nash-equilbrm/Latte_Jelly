@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace UI
 {
     public class BaseOverlap : BaseUIElement
@@ -11,6 +13,10 @@ namespace UI
         {
             base.Init();
             uiType = UIType.Overlap;
+
+            RectTransform rectTransform = GetComponent<RectTransform>();
+            rectTransform.offsetMin = Vector3.zero;
+            rectTransform.offsetMax = Vector3.zero;
         }
 
         public override void Show(object data)

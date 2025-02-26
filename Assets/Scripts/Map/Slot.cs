@@ -1,5 +1,8 @@
+using Commons;
 using DG.Tweening;
+using Game.Block;
 using Patterns;
+using System;
 using UnityEngine;
 
 
@@ -9,42 +12,70 @@ namespace Game.Map
     {
         public Transform container;
         public SpriteRenderer outline;
+        public Color outlineColor;
+        public Color outlineSelectColor;
+        private Vector2 _onScreenPosition;
+        private bool _onHover;
+        private BlockController _currentBlock;
+        public BlockController CurrentBlock {
+            get
+            {
+                return _currentBlock;
+            }
+            set
+            {
+                _currentBlock = value;
+                if (_currentBlock is null) return;
+                _currentBlock.Slot = this;
+            }
+        }
 
         private void OnEnable()
         {
-            this.PubSubRegister(EventID.OnStartHoverOnSlot, OnStartHoverOnSlot);
-            this.PubSubRegister(EventID.OnEndHoverOnSlot, OnEndHoverOnSlot);
-        }
+            this.PubSubRegister(EventID.OnSetBlockToSlot, OnSetBlockToSlot);
 
+            var slotScreenPosVec3 = Camera.main.WorldToScreenPoint(transform.position);
+            _onScreenPosition = (Vector2)slotScreenPosVec3;
+        }
 
         private void OnDisable()
         {
-            this.PubSubUnregister(EventID.OnStartHoverOnSlot, OnStartHoverOnSlot);
-            this.PubSubUnregister(EventID.OnEndHoverOnSlot, OnEndHoverOnSlot);
+            this.PubSubUnregister(EventID.OnSetBlockToSlot, OnSetBlockToSlot);
         }
 
-        private void OnEndHoverOnSlot(object obj)
+        private void OnSetBlockToSlot(object obj)
         {
-            if (obj is not Slot slot || slot != this) return;
-            OnSlotHoverEnd();
+            if (obj is not BlockController block) return;
+            CurrentBlock = block;
         }
 
-        private void OnStartHoverOnSlot(object obj)
+        internal void OnDragging(Vector2 screenPos)
         {
-            if (obj is not Slot slot || slot != this) return;
-            OnSlotHover();
+
+            if (Vector3.SqrMagnitude(screenPos - _onScreenPosition) < 90 * 90)
+            {
+                outline.color = outlineSelectColor;
+                _onHover = true;
+            }
+            else
+            {
+                outline.color = outlineColor;
+                _onHover = false;
+            }
         }
 
-        public void OnSlotHover()
+        internal void OnDragEnd(Vector2 screenPos)
         {
-            outline.DOFade(1f, 0.3f).SetEase(Ease.OutCirc);
+            outline.color = outlineColor;
+            if (_onHover)
+            {
+                this.PubSubBroadcast(EventID.OnDropToSlot, this);
+            }
+
+
+            _onHover = false;
         }
 
-        public void OnSlotHoverEnd()
-        {
-            Debug.Log("Exited hover on slot: " + gameObject.name);
-            outline.DOFade(0.3f, 0.3f).SetEase(Ease.OutCirc);
-        }
     }
 }
 

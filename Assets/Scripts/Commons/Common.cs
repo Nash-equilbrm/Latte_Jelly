@@ -31,9 +31,17 @@ namespace Commons
                 JellyColor.Purple => new Color(0.5f, 0f, 0.5f),
                 JellyColor.Green => Color.green,
                 JellyColor.Yellow => Color.yellow,
+                JellyColor.Pink => new Color(1f, 0.4f, 0.7f),
                 _ => Color.white,
             };
         }
+
+
+        public static TKey GetKeyFromValue<TKey, TValue>(this Dictionary<TKey, TValue> dict, TValue value)
+        {
+            return dict.FirstOrDefault(x => EqualityComparer<TValue>.Default.Equals(x.Value, value)).Key;
+        }
+
     }
 
 }

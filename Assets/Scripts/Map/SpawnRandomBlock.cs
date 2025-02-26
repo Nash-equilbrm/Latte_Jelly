@@ -28,30 +28,31 @@ namespace Game.Map
 
         private BlockController _currentBlock;
 
-
         private void OnEnable()
         {
-            this.PubSubRegister(EventID.OnDropCurrentBlock, OnDropCurrentBlock);
+            this.PubSubRegister(EventID.OnSetBlockToSlot, OnSetBlockToSlot);
         }
-
 
         private void OnDisable()
         {
-            this.PubSubUnregister(EventID.OnDropCurrentBlock, OnDropCurrentBlock);
+            this.PubSubUnregister(EventID.OnSetBlockToSlot, OnSetBlockToSlot);
         }
 
-        private void OnDropCurrentBlock(object obj)
+        private void OnSetBlockToSlot(object obj)
         {
+            var data = ((BlockController, Slot))obj;
+            BlockController block = data.Item1;
+            if (block != _currentBlock) return;
+            
+            _currentBlock = null;
             SpawnRandom();
         }
-
 
         [Button]
         public void SpawnRandom()
         {
             if (_currentBlock is not null)
             {
-                // ObjectPooling.Remove(_currentBlock.gameObject);
                 _currentBlock = null;
             }
             var randomBlockTag = _blockTags.GetRandomItem();

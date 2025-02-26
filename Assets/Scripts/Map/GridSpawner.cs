@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using Commons;
+using Game.Block;
 using Game.Config;
 using Game.Level;
 using Patterns;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 namespace Game.Map
@@ -11,36 +13,21 @@ namespace Game.Map
     {
         
         [SerializeField] private List<SpawnRandomBlock> _blockSpawners;
-        [SerializeField] private SpawnRandomBlock _blockSpawnerTemplate;
+        [SerializeField] private SpawnRandomBlock _blockSpawnerPrefab;
         [SerializeField] private SpawnerHorizontalLayout _spawnerHorizontalLayout;
-        private void Awake()
-        {
-            gameObject.name = nameof(GridSpawner);
-        }
 
-        private void OnEnable()
-        {
-            LogUtility.Info("GridSpawner.PubSubRegister", "EventID.OnInitLevel");
-            this.PubSubRegister(EventID.OnInitLevel, OnInitLevel);
-        }
 
-        private void OnDisable()
-        {
-            this.PubSubUnregister(EventID.OnInitLevel, OnInitLevel);
-        }
 
-        private void OnInitLevel(object obj)
+        internal void SpawnBlockSpawners(LevelConfig levelConfig)
         {
-            if (obj is not LevelConfig config) return;
-            SpawnGrid(config);
-            if (_blockSpawners.Count < config.spawnerCount)
+            if (_blockSpawners.Count < levelConfig.spawnerCount)
             {
-                for (int i = _blockSpawners.Count + 1; i <= config.spawnerCount; ++i)
+                for (int i = _blockSpawners.Count + 1; i <= levelConfig.spawnerCount; ++i)
                 {
-                    var newSpawner = Instantiate(_blockSpawnerTemplate.gameObject, parent: _spawnerHorizontalLayout.transform);
+                    var newSpawner = Instantiate(_blockSpawnerPrefab.gameObject, parent: _spawnerHorizontalLayout.transform);
                     newSpawner.SetActive(true);
                     _blockSpawners.Add(newSpawner.GetComponent<SpawnRandomBlock>());
-                    
+
                 }
             }
             _spawnerHorizontalLayout.Arrange();
@@ -51,8 +38,9 @@ namespace Game.Map
         }
 
 
-        private void SpawnGrid(LevelConfig levelConfig)
+        internal Dictionary<(int,int),Slot> SpawnGrid(LevelConfig levelConfig)
         {
+            Dictionary<(int, int), Slot> res = new();
             bool[,] grid = levelConfig.Grid;
 
             for (int r = 0; r < levelConfig.rows; r++)
@@ -61,13 +49,18 @@ namespace Game.Map
                 {
                     if (!grid[r, c]) continue;
                     
-                    Vector3 spawnPos = new Vector3((c - levelConfig.columns / 2) * Constants.CELL_SIZE.x, 0, r * Constants.CELL_SIZE.y);
+                    Vector3 spawnPos = new Vector3((c - levelConfig.columns / 2) * Constants.CELL_SIZE.x, 0, -r * Constants.CELL_SIZE.y);
                     GameObject newSlot = ObjectPooling.Instance.GetPool(Constants.SLOT_TAG)
                         .Get(position: spawnPos, rotation: Quaternion.identity.eulerAngles);
-                    newSlot.name = $"Slot_{r}_{c}";
-                    newSlot.transform.SetParent(transform); // Keep hierarchy clean
+                    newSlot.name = $"Slot_{c}_{r}";
+                    newSlot.transform.SetParent(transform);
+
+                    res.Add((c, r), newSlot.GetComponent<Slot>());
                 }
             }
+
+            return res;
+
         }
     }
 }

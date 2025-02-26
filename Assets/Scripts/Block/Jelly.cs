@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
-using System.Linq;
 using DG.Tweening;
-using NaughtyAttributes;
 using Game.Level;
 using Commons;
+using System;
+using System.Collections.Generic;
 
 namespace Game.Block
 {
-    public class SubBlock : MonoBehaviour
+    public class Jelly : MonoBehaviour
     {
         [field: SerializeField] public BlockController Controller { get; set; }
         [field: SerializeField] public JellyColor JellyColor { get; set; }
@@ -18,6 +18,9 @@ namespace Game.Block
 
         [SerializeField] private GameObject _cube;
         [SerializeField] private Renderer _cubeRenderer;
+        private float _raycastDistance = 1f;
+
+        public bool Expanding { get; set; }
 
         private void Start()
         {
@@ -28,7 +31,6 @@ namespace Game.Block
         {
             UpdateCubeTransform();
             _cube.gameObject.SetActive(true);
-            //_cubeRenderer.material.color = GetColorFromJelly(JellyColor);
             UpdateColor();
             _cube.transform.SetParent(transform);
         }
@@ -44,6 +46,7 @@ namespace Game.Block
 
         public void Expand()
         {
+            Expanding = true;
             int height = Controller.Colors.GetLength(0);
             int width = Controller.Colors.GetLength(1);
 
@@ -99,7 +102,10 @@ namespace Game.Block
             float newCenterZ = -(Y + (Size.y / 2f));
 
             _cube.transform.DOScale(new Vector3(Size.x, 1, Size.y), 0.2f).SetEase(Ease.OutBack);
-            _cube.transform.DOLocalMove(new Vector3(newCenterX, 0, newCenterZ), 0.2f).SetEase(Ease.OutBack);
+            _cube.transform.DOLocalMove(new Vector3(newCenterX, 0, newCenterZ), 0.2f).SetEase(Ease.OutBack).OnComplete(() =>
+            {
+                Expanding = false;
+            });
         }
 
 
@@ -154,6 +160,76 @@ namespace Game.Block
                 _cubeRenderer.SetPropertyBlock(block);
                 gameObject.name = JellyColor.ToString();
             }
+        }
+
+
+        public void RemoveSelf()
+        {
+            Controller.RemoveSubBlock(this);
+        }
+
+        internal bool CheckRaycast()
+        {
+            string jellyTag = gameObject.tag;
+            List<Jelly> matchingJellies = new List<Jelly>();
+            var raycastPositions = GetRaycastPositions();
+            Vector3[] directions = { Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
+            foreach (var pos in raycastPositions) {
+                var positionToRaycast = transform.position + new Vector3(pos.Item1, 0f, pos.Item2);
+                for (int i = 0; i < directions.Length; i++)
+                {
+                    Debug.DrawRay(positionToRaycast, directions[i] * _raycastDistance, Color.red, 1f);
+
+                    if (Physics.Raycast(positionToRaycast, directions[i], out RaycastHit hit, _raycastDistance))
+                    {
+                        
+                        if (hit.collider.gameObject != gameObject 
+                            && hit.collider.transform.parent != transform.parent
+                            && hit.collider.CompareTag(jellyTag))
+                        {
+                            Jelly otherJelly = hit.collider.transform.parent.parent.GetComponent<Jelly>();
+                            if (otherJelly != null && otherJelly.JellyColor == JellyColor)
+                            {
+                                LogUtility.NotificationInfo("CheckRaycast", $"Result: {hit.collider.transform.parent.name}");
+                                matchingJellies.Add(otherJelly);
+                            }
+                        }
+                    }
+                }
+            }
+            
+
+            if (matchingJellies.Count > 0)
+            {
+                foreach (Jelly jelly in matchingJellies)
+                {
+                    if (jelly != null)
+                    {
+                        jelly.RemoveSelf();
+                    }
+                }
+                RemoveSelf();
+                return true;
+            }
+
+            return false;
+        }
+
+
+        private List<(float, float)> GetRaycastPositions()
+        {
+            List<(float, float)> res = new List<(float, float)>();
+            for(int i = 1; i <= Size.x; ++i)
+            {
+                for (int j = 1; j <= Size.y; ++j)
+                {
+                    (float, float) coor = (X + i - 1, -(Y + j - 1));
+                    coor.Item1 += 0.5f;
+                    coor.Item2 -= 0.5f;
+                    res.Add(coor);
+                }
+            }
+            return res;
         }
     }
 }

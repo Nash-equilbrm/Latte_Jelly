@@ -2,15 +2,15 @@
   "id": 1,
   "levelRequirements": [
     {
-      "jellyColor": "Cyan",
+      "jellyColor": 1,
       "amount": 4
     },
     {
-      "jellyColor": "Green",
+      "jellyColor": 3,
       "amount": 4
     }
   ],
-  "colors": ["Cyan", "Purple", "Green", "Pink"],
+  "colors": [1 , 2, 3, 5],
   "spawnerCount": 1,
   "rows": 3,
   "columns": 5,
