@@ -12,6 +12,7 @@ namespace Game.Map
 {
     public class SpawnRandomBlock : MonoBehaviour
     {
+        public Transform container;
         private string[] _blockTags = new string [8]
         {
             Constants.BLOCK1,
@@ -37,9 +38,9 @@ namespace Game.Map
             var position = transform.position;
             var randomBlockTag = _blockTags.GetRandomItem();
             var randomBlock = ObjectPooling.Instance.GetPool(randomBlockTag).Get(
-                parent: transform,
+                parent: container,
                 rotation: Quaternion.identity.eulerAngles);
-            randomBlock.transform.localPosition = new Vector3(-Constants.CELL_SIZE.x / 2, 0.5f, Constants.CELL_SIZE.y / 2);
+            randomBlock.transform.localPosition = Vector3.zero;
             _currentBlock = randomBlock.GetComponent<BlockController>();
         }
     }

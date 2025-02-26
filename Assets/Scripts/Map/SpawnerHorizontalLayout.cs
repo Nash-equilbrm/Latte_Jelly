@@ -7,26 +7,42 @@ namespace Game.Map
     {
         public float spacing = 1.0f; // Khoảng cách giữa các GameObject con
 
-        void Start()
+        [ContextMenu("Arrange Active Children")]
+        internal void Arrange()
         {
-            Arrange();
+            Transform[] activeChildren = GetActiveChildren();
+            int activeChildCount = activeChildren.Length;
+
+            if (activeChildCount == 0) return;
+
+            float totalWidth = (activeChildCount - 1) * spacing;
+            Vector3 startPos = transform.position - new Vector3(totalWidth / 2, 0, 0);
+
+            for (int i = 0; i < activeChildCount; i++)
+            {
+                activeChildren[i].position = startPos + new Vector3(i * spacing, 0, 0);
+            }
         }
 
-        [ContextMenu("Arrange Children")]
-        private void Arrange()
+        private Transform[] GetActiveChildren()
         {
             int childCount = transform.childCount;
-            if (childCount == 0) return;
-
-            // Tính toán vị trí bắt đầu sao cho trung tâm là vị trí của cha
-            float totalWidth = (childCount - 1) * spacing;
-            Vector3 startPos = transform.position - new Vector3(totalWidth / 2, 0, 0);
+            Transform[] activeChildren = new Transform[childCount];
+            int activeIndex = 0;
 
             for (int i = 0; i < childCount; i++)
             {
                 Transform child = transform.GetChild(i);
-                child.position = startPos + new Vector3(i * spacing, 0, 0);
+                if (child.gameObject.activeSelf)
+                {
+                    activeChildren[activeIndex] = child;
+                    activeIndex++;
+                }
             }
+
+            Transform[] result = new Transform[activeIndex];
+            System.Array.Copy(activeChildren, result, activeIndex);
+            return result;
         }
     }
 }

@@ -62,6 +62,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8077115711215629783}
   - component: {fileID: 6882678477436465972}
+  - component: {fileID: -3370079237569819105}
+  - component: {fileID: -8974465198695675724}
   m_Layer: 0
   m_Name: Block3_4
   m_TagString: Untagged
@@ -108,6 +110,42 @@ MonoBehaviour:
   <Height>k__BackingField: 2
   <Width>k__BackingField: 2
   toRemove: {fileID: 0}
+--- !u!65 &-3370079237569819105
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473925662576462246}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.8, y: 1, z: 1.8}
+  m_Center: {x: 1, y: 0, z: -1}
+--- !u!114 &-8974465198695675724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473925662576462246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cd1d6947cdc417aa8e1e4d55526648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DragLayerName: Ignore Raycast
+  DragSpeed: 20
+  DragDistance: 0
 --- !u!1 &2867266062298122139
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,6 +438,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3779415059726283432}
   m_SourcePrefab: {fileID: 100100000, guid: 4c7a8a980a7e4bf469a383fd371318d8, type: 3}
+--- !u!33 &799634850988525324 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 4268776109551906626}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &3241510778114765766 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 4c7a8a980a7e4bf469a383fd371318d8,
@@ -424,12 +468,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99e27b1518cb1c49b4f63ff11327267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Intensity: 1
-  Mass: 5
+  intensity: 1
+  mass: 5
   stiffness: 1
   damping: 0.75
-  _renderer: {fileID: 0}
-  _meshFilter: {fileID: 0}
+  MaxStretch: 0.5
+  _renderer: {fileID: 3241510778114765766}
+  _meshFilter: {fileID: 799634850988525324}
 --- !u!4 &4374970220054218921 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
@@ -558,12 +603,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99e27b1518cb1c49b4f63ff11327267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Intensity: 1
-  Mass: 5
+  intensity: 1
+  mass: 5
   stiffness: 1
   damping: 0.75
-  _renderer: {fileID: 0}
-  _meshFilter: {fileID: 0}
+  MaxStretch: 0.5
+  _renderer: {fileID: 4944583427490053114}
+  _meshFilter: {fileID: 7168119993765400368}
+--- !u!33 &7168119993765400368 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 6007562002538522494}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7449349822578871063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -656,6 +708,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2163849740876824177}
   m_SourcePrefab: {fileID: 100100000, guid: 4c7a8a980a7e4bf469a383fd371318d8, type: 3}
+--- !u!33 &6288162910176584537 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 7449349822578871063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6983905773677161724 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
@@ -680,12 +738,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99e27b1518cb1c49b4f63ff11327267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Intensity: 1
-  Mass: 5
+  intensity: 1
+  mass: 5
   stiffness: 1
   damping: 0.75
-  _renderer: {fileID: 0}
-  _meshFilter: {fileID: 0}
+  MaxStretch: 0.5
+  _renderer: {fileID: 8115765324190341011}
+  _meshFilter: {fileID: 6288162910176584537}
 --- !u!23 &8115765324190341011 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 4c7a8a980a7e4bf469a383fd371318d8,

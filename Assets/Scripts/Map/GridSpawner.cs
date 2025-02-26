@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using Commons;
 using Game.Config;
 using Game.Level;
@@ -9,6 +9,10 @@ namespace Game.Map
 {
     public class GridSpawner : MonoBehaviour
     {
+        
+        [SerializeField] private List<SpawnRandomBlock> _blockSpawners;
+        [SerializeField] private SpawnRandomBlock _blockSpawnerTemplate;
+        [SerializeField] private SpawnerHorizontalLayout _spawnerHorizontalLayout;
         private void Awake()
         {
             gameObject.name = nameof(GridSpawner);
@@ -29,6 +33,21 @@ namespace Game.Map
         {
             if (obj is not LevelConfig config) return;
             SpawnGrid(config);
+            if (_blockSpawners.Count < config.spawnerCount)
+            {
+                for (int i = _blockSpawners.Count + 1; i <= config.spawnerCount; ++i)
+                {
+                    var newSpawner = Instantiate(_blockSpawnerTemplate.gameObject, parent: _spawnerHorizontalLayout.transform);
+                    newSpawner.SetActive(true);
+                    _blockSpawners.Add(newSpawner.GetComponent<SpawnRandomBlock>());
+                    
+                }
+            }
+            _spawnerHorizontalLayout.Arrange();
+            foreach (var s in _blockSpawners)
+            {
+                s.SpawnRandom();
+            }
         }
 
 

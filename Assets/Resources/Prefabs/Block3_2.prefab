@@ -74,6 +74,8 @@ GameObject:
   m_Component:
   - component: {fileID: 161774881276939526}
   - component: {fileID: 725531203067512609}
+  - component: {fileID: -107863667145347448}
+  - component: {fileID: 6493886081000887169}
   m_Layer: 0
   m_Name: Block3_2
   m_TagString: Untagged
@@ -120,6 +122,42 @@ MonoBehaviour:
   <Height>k__BackingField: 2
   <Width>k__BackingField: 2
   toRemove: {fileID: 0}
+--- !u!65 &-107863667145347448
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4247343313562229488}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.8, y: 1, z: 1.8}
+  m_Center: {x: 1, y: 0, z: -1}
+--- !u!114 &6493886081000887169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4247343313562229488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cd1d6947cdc417aa8e1e4d55526648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DragLayerName: Ignore Raycast
+  DragSpeed: 20
+  DragDistance: 0
 --- !u!1 &5208914045132303787
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,15 +462,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99e27b1518cb1c49b4f63ff11327267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Intensity: 1
-  Mass: 5
+  intensity: 1
+  mass: 5
   stiffness: 1
   damping: 0.75
-  _renderer: {fileID: 0}
-  _meshFilter: {fileID: 0}
+  MaxStretch: 0.5
+  _renderer: {fileID: 1017177135656845027}
+  _meshFilter: {fileID: 3024530533513775657}
 --- !u!4 &2186095110195135884 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1863408974407869031}
+  m_PrefabAsset: {fileID: 0}
+--- !u!33 &3024530533513775657 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: 4c7a8a980a7e4bf469a383fd371318d8,
     type: 3}
   m_PrefabInstance: {fileID: 1863408974407869031}
   m_PrefabAsset: {fileID: 0}
@@ -552,15 +597,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99e27b1518cb1c49b4f63ff11327267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Intensity: 1
-  Mass: 5
+  intensity: 1
+  mass: 5
   stiffness: 1
   damping: 0.75
-  _renderer: {fileID: 0}
-  _meshFilter: {fileID: 0}
+  MaxStretch: 0.5
+  _renderer: {fileID: 5395336202208724300}
+  _meshFilter: {fileID: 7855653210632237446}
 --- !u!4 &6533378820927077923 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 6710785731919763912}
+  m_PrefabAsset: {fileID: 0}
+--- !u!33 &7855653210632237446 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: 4c7a8a980a7e4bf469a383fd371318d8,
     type: 3}
   m_PrefabInstance: {fileID: 6710785731919763912}
   m_PrefabAsset: {fileID: 0}
@@ -656,6 +708,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 9050085867734453589}
   m_SourcePrefab: {fileID: 100100000, guid: 4c7a8a980a7e4bf469a383fd371318d8, type: 3}
+--- !u!33 &4837869519398759657 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 8288578633216394407}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &7261887256043132963 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 4c7a8a980a7e4bf469a383fd371318d8,
@@ -686,9 +744,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99e27b1518cb1c49b4f63ff11327267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Intensity: 1
-  Mass: 5
+  intensity: 1
+  mass: 5
   stiffness: 1
   damping: 0.75
-  _renderer: {fileID: 0}
-  _meshFilter: {fileID: 0}
+  MaxStretch: 0.5
+  _renderer: {fileID: 7261887256043132963}
+  _meshFilter: {fileID: 4837869519398759657}
