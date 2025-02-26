@@ -1,14 +1,22 @@
 {
   "id": 1,
-  "levelRequireMents": [
+  "levelRequirements": [
     {
-      "jellyColor": 1,
+      "jellyColor": "Cyan",
       "amount": 4
     },
     {
-      "jellyColor": 3,
+      "jellyColor": "Green",
       "amount": 4
     }
   ],
-  "colors": [ 1, 2, 3, 5 ]
+  "colors": ["Cyan", "Purple", "Green", "Pink"],
+  "spawnerCount": 1,
+  "rows": 3,
+  "columns": 5,
+  "serializedGrid": [
+    false, true, true, true, false,
+    true, true, true, true, true,
+    false, true, true, true, false
+  ]
 }

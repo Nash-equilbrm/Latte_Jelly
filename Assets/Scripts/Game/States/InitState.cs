@@ -1,4 +1,7 @@
+using System.Collections;
+using Commons;
 using DG.Tweening;
+using Game.Config;
 using Game.Level;
 using Patterns;
 using UnityEngine;
@@ -6,6 +9,9 @@ using UnityEngine;
 
 namespace Game.States
 {
+    /// <summary>
+    /// TODO: Init game specs when loaded
+    /// </summary>
     public class InitState : State<GameManager>
     {
         private bool _initialized = false;
@@ -16,11 +22,15 @@ namespace Game.States
         public override void Enter()
         {
             base.Enter();
-            //if (_initialized) return;
-            //_initialized = true;
+            if (_initialized) return;
+            _initialized = true;
             DOTween.Init();
             Application.targetFrameRate = 60;
             LoadLevelConfigs();
+            _context.StartCoroutine(IEWaitForSingletons());
+            PreparePools();
+            _context.ChangeToInitLevelState();
+            _context.CurrentConfigIndex = 0;
         }
 
         public override void Exit()
@@ -33,8 +43,20 @@ namespace Game.States
             foreach (var file in _context.configFiles)
             {
                 var levelConfig = JsonUtility.FromJson<LevelConfig>(file.text);
+                LogUtility.Info("InitState", levelConfig.ToString());
+
                 _context.LevelConfigs.Add(levelConfig);
             }
+        }
+
+        private void PreparePools()
+        {
+            ObjectPooling.Instance.GetPool(Constants.SLOT_TAG).Prepare(20);
+        }
+
+        private IEnumerator IEWaitForSingletons()
+        {
+            yield return new WaitUntil(() => PubSub.HasInstance && ObjectPooling.HasInstance);
         }
     }
 

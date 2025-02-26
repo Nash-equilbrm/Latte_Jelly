@@ -6,16 +6,7 @@ namespace Patterns
 {
     public enum EventID
     {
-        OnInitGame,
-        OnStartInitGame,
-        OnSpawnedGameobjects,
-        OnGameStartCounting,
-        OnFinishCounting,
-        OnStartGameplay,
-        OnHitFinishLine,
-        OnFinishGame,
-        OnReplayBtnClicked,
-        OnHitCheckpoint,
-        OnCounting,
+        OnInitLevel,
+        
     }
 }

@@ -38,6 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -265,12 +266,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,7 +517,7 @@ PrefabInstance:
     - target: {fileID: 3960232552875955476, guid: 83b9e89820f59544dae4b3e90b2e2618,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8762403391798029849, guid: 83b9e89820f59544dae4b3e90b2e2618,
         type: 3}
@@ -589,7 +590,7 @@ PrefabInstance:
     - target: {fileID: 246581010550335452, guid: b7e4a3f4a3393d043a7de70f4ece9ca0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4406323267510955556, guid: b7e4a3f4a3393d043a7de70f4ece9ca0,
         type: 3}
@@ -712,7 +713,7 @@ PrefabInstance:
     - target: {fileID: 6967141731763536018, guid: b0145aee60affd84ca090d456b301fa7,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -735,7 +736,7 @@ PrefabInstance:
     - target: {fileID: 1473925662576462246, guid: 1302488676e59314cb5a3b1470b181ab,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8077115711215629783, guid: 1302488676e59314cb5a3b1470b181ab,
         type: 3}
@@ -883,7 +884,7 @@ PrefabInstance:
     - target: {fileID: 1376082993426719682, guid: 566677182140e9a45aa2517be9efe074,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -956,7 +957,7 @@ PrefabInstance:
     - target: {fileID: 6826216586504019415, guid: deec808d555a1424392c563fbb15a59a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1029,7 +1030,7 @@ PrefabInstance:
     - target: {fileID: 8350640320352547837, guid: 8191e739c0c38514b96462d173c68282,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1102,7 +1103,7 @@ PrefabInstance:
     - target: {fileID: 4247343313562229488, guid: 577ab542be28b6c43a44b93381e8f3c3,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -34,7 +34,6 @@ namespace Patterns
         {
             get
             {
-                LogUtility.ValidInfo("Singleton", $"{typeof(T).Name}  HasInstance = {instance != null}");
                 return instance != null;
             }
         }
