@@ -7,6 +7,9 @@ namespace Patterns
     public enum EventID
     {
         OnInitLevel,
-        
+
+        OnStartHoverOnSlot,
+        OnEndHoverOnSlot,
+        OnDropCurrentBlock
     }
 }

@@ -126,7 +126,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3093971300331568157}
   - component: {fileID: 4066348509431572900}
-  - component: {fileID: 1176948447100399267}
   m_Layer: 0
   m_Name: Slot
   m_TagString: Untagged
@@ -203,19 +202,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1176948447100399267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629300830746946657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c86eae91c3ec45388b28e7ca3b65256, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  container: {fileID: 0}
 --- !u!1 &4123088351587879168
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 973615025177794160}
   - component: {fileID: 3894591569567963586}
+  - component: {fileID: 3556194745528527645}
   m_Layer: 0
   m_Name: Slot
   m_TagString: Untagged
@@ -263,3 +250,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   container: {fileID: 1868061316164614819}
+--- !u!65 &3556194745528527645
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4123088351587879168}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 0.2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Commons;
@@ -26,16 +27,33 @@ namespace Game.Map
         };
 
         private BlockController _currentBlock;
-        
+
+
+        private void OnEnable()
+        {
+            this.PubSubRegister(EventID.OnDropCurrentBlock, OnDropCurrentBlock);
+        }
+
+
+        private void OnDisable()
+        {
+            this.PubSubUnregister(EventID.OnDropCurrentBlock, OnDropCurrentBlock);
+        }
+
+        private void OnDropCurrentBlock(object obj)
+        {
+            SpawnRandom();
+        }
+
+
         [Button]
         public void SpawnRandom()
         {
             if (_currentBlock is not null)
             {
-                ObjectPooling.Remove(_currentBlock.gameObject);
+                // ObjectPooling.Remove(_currentBlock.gameObject);
                 _currentBlock = null;
             }
-            var position = transform.position;
             var randomBlockTag = _blockTags.GetRandomItem();
             var randomBlock = ObjectPooling.Instance.GetPool(randomBlockTag).Get(
                 parent: container,
