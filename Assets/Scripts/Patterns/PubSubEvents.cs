@@ -10,6 +10,7 @@ namespace Patterns
 
         OnSetBlockToSlot,
         OnDropToSlot,
-        OnBlockSelected
+        OnBlockSelected,
+        OnBlockHovering
     }
 }

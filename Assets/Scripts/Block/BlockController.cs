@@ -80,7 +80,7 @@ namespace Game.Block
             if (DroppedToSlot || !_followPlayerInput) return;
             var screenPosition = new Vector3(screenPos.x, screenPos.y, 5f);
             screenPosition.x += -100;
-            screenPosition.y += 400;
+            screenPosition.y += 300;
             var targetPosition = Camera.main.ScreenToWorldPoint(screenPosition);
             if (Vector3.SqrMagnitude(targetPosition - transform.position) <= 0.1f)
             {
@@ -89,6 +89,15 @@ namespace Game.Block
             else
             {
                 transform.position = Vector3.Lerp(transform.position, targetPosition, _speed * Time.deltaTime);
+            }
+
+            if (Physics.Raycast(transform.position + new Vector3(1f, 0f, -1f), Camera.main.transform.forward, out RaycastHit hit, 30f))
+            {
+                if (hit.collider && hit.collider.CompareTag(Constants.SLOT_TAG))
+                {
+                    this.PubSubBroadcast(EventID.OnBlockHovering, hit.collider);
+                }
+
             }
         }
 

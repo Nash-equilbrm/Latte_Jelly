@@ -43,7 +43,7 @@ namespace Game.Map
 
             foreach (var slot in _slots.Values)
             {
-                InputReader.Instance.OnDragging -= slot.OnDragging;
+                // InputReader.Instance.OnDragging -= slot.OnDragging;
                 InputReader.Instance.OnDragEnd -= slot.OnDragEnd;
             }
         }
@@ -56,7 +56,7 @@ namespace Game.Map
             _spawner.SpawnBlockSpawners(config);
             foreach (var slot in _slots.Values)
             {
-                InputReader.Instance.OnDragging += slot.OnDragging;
+                // InputReader.Instance.OnDragging += slot.OnDragging;
                 InputReader.Instance.OnDragEnd += slot.OnDragEnd;
             }
         }

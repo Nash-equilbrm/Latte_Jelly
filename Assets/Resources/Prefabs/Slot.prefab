@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1868061316164614819}
   m_Layer: 0
   m_Name: container
-  m_TagString: Untagged
+  m_TagString: Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 550481326936016669}
   m_Layer: 0
   m_Name: SlotInner
-  m_TagString: Untagged
+  m_TagString: Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 4066348509431572900}
   m_Layer: 0
   m_Name: Slot
-  m_TagString: Untagged
+  m_TagString: Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 3556194745528527645}
   m_Layer: 0
   m_Name: Slot
-  m_TagString: Untagged
+  m_TagString: Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -253,6 +253,7 @@ MonoBehaviour:
   outline: {fileID: 4066348509431572900}
   outlineColor: {r: 0.39607844, g: 0.39607844, b: 0.39607844, a: 1}
   outlineSelectColor: {r: 1, g: 1, b: 1, a: 1}
+  _currentBlock: {fileID: 0}
 --- !u!65 &3556194745528527645
 BoxCollider:
   m_ObjectHideFlags: 0
