@@ -75,6 +75,10 @@ namespace Patterns
                 PubSub.Instance.PSBroadcast(id, null);
                 LogUtility.ValidInfo("PubSubBroadcast", id.ToString());
             }
+            else
+            {
+                LogUtility.InvalidInfo("PubSubBroadcast Fail", id.ToString());
+            }
         }
         public static void PubSubBroadcast(this MonoBehaviour listener, EventID id, object data)
         {

@@ -32,7 +32,6 @@ namespace Game.Map
 
         private void OnEnable()
         {
-            this.PubSubRegister(EventID.OnSetBlockToSlot, OnSetBlockToSlot);
             this.PubSubRegister(EventID.OnBlockHovering, OnBlockHovering);
 
             var slotScreenPosVec3 = Camera.main.WorldToScreenPoint(transform.position);
@@ -41,7 +40,6 @@ namespace Game.Map
 
         private void OnDisable()
         {
-            this.PubSubUnregister(EventID.OnSetBlockToSlot, OnSetBlockToSlot);
             this.PubSubUnregister(EventID.OnBlockHovering, OnBlockHovering);
         }
 
@@ -66,11 +64,7 @@ namespace Game.Map
 
         }
 
-        private void OnSetBlockToSlot(object obj)
-        {
-            if (obj is not BlockController block) return;
-            CurrentBlock = block;
-        }
+ 
 
 
         internal void OnDragEnd(Vector2 screenPos)

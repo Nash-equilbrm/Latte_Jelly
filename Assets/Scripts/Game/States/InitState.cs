@@ -19,18 +19,24 @@ namespace Game.States
         {
         }
 
+        public InitState(GameManager context, string name) : base(context, name)
+        {
+        }
+
         public override void Enter()
         {
             base.Enter();
-            if (_initialized) return;
-            _initialized = true;
-            DOTween.Init();
-            Application.targetFrameRate = 60;
-            LoadLevelConfigs();
-            _context.StartCoroutine(IEWaitForSingletons());
-            PreparePools();
+            if (!_initialized)
+            {
+                _initialized = true;
+                DOTween.Init();
+                Application.targetFrameRate = 60;
+                LoadLevelConfigs();
+                _context.StartCoroutine(IEWaitForSingletons());
+                PreparePools();
+                _context.CurrentConfigIndex = 0;
+            }
             _context.ChangeToInitLevelState();
-            _context.CurrentConfigIndex = 0;
         }
 
         public override void Exit()

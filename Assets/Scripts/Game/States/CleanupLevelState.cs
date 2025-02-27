@@ -1,3 +1,5 @@
+using DG.Tweening;
+using Game.Config;
 using Patterns;
 using System;
 using System.Collections;
@@ -11,7 +13,12 @@ namespace Game.States
     {
         private bool _finishCleanupGridSpawner = false;
         private bool _finishCleanupBlockSpawner = false;
+        private float _waitDuration = 3f;
         public CleanupLevelState(GameManager context) : base(context)
+        {
+        }
+
+        public CleanupLevelState(GameManager context, string name) : base(context, name)
         {
         }
 
@@ -19,14 +26,17 @@ namespace Game.States
         {
             base.Enter();
             RegisterEvents();
-            _context.PubSubBroadcast(EventID.OnCleanupLevel);
+            DOTween.Sequence().AppendInterval(Constants.INTERVAL_BETWEEN_LEVELS/2).OnComplete(() => {
+                _context.PubSubBroadcast(EventID.OnCleanupLevel);
+            });
         }
 
         public override void Exit()
         {
             base.Exit();
             UnregisterEvents();
-
+            _finishCleanupBlockSpawner = false;
+            _finishCleanupGridSpawner = false;
         }
 
         private void RegisterEvents()
@@ -58,7 +68,9 @@ namespace Game.States
             if(_finishCleanupBlockSpawner 
                 && _finishCleanupGridSpawner)
             {
-                _context.ChangeToInitLevelState();
+                DOTween.Sequence().AppendInterval(Constants.INTERVAL_BETWEEN_LEVELS/2).OnComplete(() => { 
+                   _context.ChangeToInitLevelState();
+                });
             }
         }
     }

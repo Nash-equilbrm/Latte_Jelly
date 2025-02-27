@@ -29,6 +29,7 @@ namespace Game.Map
 
         private void OnEnable()
         {
+            LogUtility.Info("GridController", "PubSubRegister(EventID.OnInitLevel)");
             this.PubSubRegister(EventID.OnInitLevel, OnInitLevel);
             this.PubSubRegister(EventID.OnSetBlockToSlot, OnSetBlockToSlot);
             this.PubSubRegister(EventID.OnCleanupLevel, OnCleanupLevel);
@@ -38,6 +39,7 @@ namespace Game.Map
 
         private void OnDisable()
         {
+            LogUtility.Info("GridController", "PubSubUnregister(EventID.OnInitLevel)");
             this.PubSubUnregister(EventID.OnInitLevel, OnInitLevel);
             this.PubSubUnregister(EventID.OnSetBlockToSlot, OnSetBlockToSlot);
             this.PubSubUnregister(EventID.OnCleanupLevel, OnCleanupLevel);
@@ -62,6 +64,8 @@ namespace Game.Map
         private void OnInitLevel(object obj)
         {
             if (obj is not LevelConfig config) return;
+            LogUtility.Info("GridController", "OnInitLevel");
+
             _slots = _spawner.SpawnGrid(config);
             _spawner.SpawnBlockSpawners(config);
             foreach (var slot in _slots.Values)

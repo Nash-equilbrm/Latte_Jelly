@@ -22,13 +22,13 @@ namespace Game.CameraControl
 
         private void OnEnable()
         {
-            this.PubSubRegister(EventID.OnCleanupLevel, OnCleanupLevel);
+            this.PubSubRegister(EventID.OnFinishLevel, OnFinishLevel);
             this.PubSubRegister(EventID.OnStartGameplay, OnStartGameplay);
         }
 
         private void OnDisable()
         {
-            this.PubSubUnregister(EventID.OnCleanupLevel, OnCleanupLevel);
+            this.PubSubUnregister(EventID.OnFinishLevel, OnFinishLevel);
             this.PubSubUnregister(EventID.OnStartGameplay, OnStartGameplay);
         }
 
@@ -37,7 +37,7 @@ namespace Game.CameraControl
             transform.DORotate(_rotationWhenPlayGame, 1f).SetEase(Ease.InOutExpo);
         }
 
-        private void OnCleanupLevel(object obj)
+        private void OnFinishLevel(object obj)
         {
             transform.DORotate(_rotationWhenInitGame, 1f).SetEase(Ease.InOutExpo);
         }

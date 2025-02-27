@@ -22,6 +22,21 @@ namespace Game.Config
         public static string BLOCK3_3 = "block3_3";
         public static string BLOCK3_4 = "block3_4";
         public static string BLOCK4 = "block4";
+
+
+        public static float INTERVAL_BETWEEN_LEVELS = 2f;
+
+
+        #region VFX
+        public static string VFX_JELLY_POP = "JellyPopVFX";
+        #endregion
+
+        #region AUDIO
+        public static string SFX_POP = "Pop";
+        public static string SFX_JELLY_POP = "JellyPop";
+        public static string SFX_BTN_CLICKED = "BtnClicked";
+
+        #endregion
     }
 
 }

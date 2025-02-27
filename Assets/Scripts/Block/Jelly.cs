@@ -5,6 +5,8 @@ using Commons;
 using System;
 using System.Collections.Generic;
 using Patterns;
+using Game.Audio;
+using Game.Config;
 
 namespace Game.Block
 {
@@ -147,14 +149,24 @@ namespace Game.Block
             {
                 var self = this;
                 DOTween.Sequence()
-                    .Join(_cube.transform.DOLocalMove(_cube.transform.localPosition + new Vector3(0f, 1f, 1f),1f).SetEase(Ease.InOutExpo))
-                    .Join(_cube.transform.DOScale(Vector3.one * 0.3f, 1f).SetEase(Ease.InOutExpo))
+                    .Join(_cube.transform.DOLocalMove(_cube.transform.localPosition + new Vector3(0f, 1f, 1f), 1f).SetEase(Ease.InOutExpo))
+                    .Join(_cube.transform.DOScale(Vector3.one * 0.1f, 1f).SetEase(Ease.InOutExpo))
                     .OnComplete(() =>
                     {
                         //Destroy(_cube);
                         self.PubSubBroadcast(EventID.OnDestroyJelly, JellyColor);
+
+                        AudioManager.Instance.PlaySFX(Constants.SFX_JELLY_POP);
+
+                        var vfxObj = ObjectPooling.Instance.GetPool(Constants.VFX_JELLY_POP).Get(position: _cube.transform.position);
+                        var vfx = vfxObj.GetComponent<ParticleSystem>();
+                        var main = vfx.main;
+                        main.startColor = Common.GetColorFromJelly(JellyColor);
+                        vfx.Play();
                         Destroy(gameObject);
                     });
+
+
             }
         }
 

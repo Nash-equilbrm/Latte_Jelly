@@ -14,8 +14,13 @@ namespace  Game.States
     /// </summary>
     public class InitLevelState : State<GameManager>
     {
+        private bool _objectInitialized = false;
         private GridSpawner _gridSpawner;
         public InitLevelState(GameManager context) : base(context)
+        {
+        }
+
+        public InitLevelState(GameManager context, string name) : base(context, name)
         {
         }
 
@@ -23,7 +28,7 @@ namespace  Game.States
         {
             base.Enter();
             SetUpGameObjects();
-            LogUtility.Info("InitLevelState.PubSubBroadcast", "EventID.OnInitLevel");
+            LogUtility.Info("InitLevelState", "PubSubBroadcast(EventID.OnInitLevel)");
             _context.PubSubBroadcast(EventID.OnInitLevel, _context.CurrentConfig);
             _context.ChangeToGameplayState();
         }
@@ -35,7 +40,11 @@ namespace  Game.States
 
         private void SetUpGameObjects()
         {
-            foreach(var go in _context.initAfterPubSub)
+            if (_objectInitialized) return;
+
+            _objectInitialized = true;
+            
+            foreach (var go in _context.initAfterPubSub)
             {
                 go.SetActive(true);
             }

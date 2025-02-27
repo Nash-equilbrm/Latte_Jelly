@@ -26,18 +26,25 @@ namespace Game.Map
             Constants.BLOCK4,
         };
 
-        private BlockController _currentBlock;
+        [SerializeField] private BlockController _currentBlock;
 
         private void OnEnable()
         {
             this.PubSubRegister(EventID.OnSetBlockToSlot, OnSetBlockToSlot);
+            this.PubSubRegister(EventID.OnStartGameplay, OnStartGameplay);
             this.PubSubRegister(EventID.OnCleanupLevel, OnCleanupLevel);
         }
 
         private void OnDisable()
         {
             this.PubSubUnregister(EventID.OnSetBlockToSlot, OnSetBlockToSlot);
+            this.PubSubUnregister(EventID.OnStartGameplay, OnStartGameplay);
             this.PubSubUnregister(EventID.OnCleanupLevel, OnCleanupLevel);
+        }
+
+        private void OnStartGameplay(object obj)
+        {
+            SpawnRandom();
         }
 
         private void OnSetBlockToSlot(object obj)

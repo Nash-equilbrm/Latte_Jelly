@@ -1,5 +1,6 @@
 ﻿using Commons;
 using DG.Tweening;
+using Game.Audio;
 using Game.Config;
 using Game.Level;
 using Game.Map;
@@ -27,7 +28,7 @@ namespace Game.Block
 
         private bool _followPlayerInput = false;
         [field: SerializeField] public bool DroppedToSlot { get; set; } = false;
-        public Slot Slot { get; set; }
+        [field: SerializeField] public Slot Slot { get; set; }
         public List<Jelly> SubBlocks { get => _subBlocks; }
 
         private void Start()
@@ -125,7 +126,11 @@ namespace Game.Block
         {
             if (DroppedToSlot || !_followPlayerInput) return;
             //transform.localPosition = Vector3.zero;
-            transform.DOLocalMove(Vector3.zero, .3f).SetEase(Ease.InOutExpo);
+            transform.DOLocalMove(Vector3.zero, .3f).SetEase(Ease.InOutExpo)
+                .OnComplete(() =>
+                {
+                    AudioManager.Instance.PlaySFX(Constants.SFX_POP);
+                });
           
             _followPlayerInput = false;
             InputReader.Instance.OnDragging -= OnDragging;

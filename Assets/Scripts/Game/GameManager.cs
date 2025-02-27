@@ -35,14 +35,20 @@ namespace Game
 
         public List<GameObject> initAfterPubSub;
 
+        public string StateName = "";
+        private void Update()
+        {
+            StateName = _stateMachine.CurrentState.name;
+        }
 
-        
+
         private void Start()
         {
-            _initState = new(this);
-            _initLevelState = new(this);
-            _gameplayState = new(this);
-            _cleanupLevelState = new(this);
+            foreach (var obj in initAfterPubSub) { obj.SetActive(false); }
+            _initState = new(this, "Init State");
+            _initLevelState = new(this, "Init Level State");
+            _gameplayState = new(this, "Gameplay State");
+            _cleanupLevelState = new(this, "Clean up Level State");
 
             _stateMachine.Initialize(_initState);
         }

@@ -19,7 +19,7 @@ namespace Game.UI
     {
         public GameObject jellyScoreTemplate;
         public HorizontalLayoutGroup jellyScoreLayout;
-        private List<GameObject> _jellyScoreUI = new();
+        [SerializeField] private List<GameObject> _jellyScoreUI = new();
         private Dictionary<JellyColor, TMP_Text> _uiDict = new();
 
         public override void Hide()
@@ -33,6 +33,7 @@ namespace Game.UI
             {
                 base.Hide();
                 UnregisterEvents();
+                LogUtility.Info("GameplayOverlap", "Destroy UI");
                 foreach (var item in _jellyScoreUI)
                 {
                     Destroy(item);
@@ -41,7 +42,9 @@ namespace Game.UI
                 _uiDict.Clear();
                 jellyScoreLayout.gameObject.SetActive(false);
             });
-           
+            seq.Play();
+
+
         }
 
         public override void Init()
@@ -76,7 +79,6 @@ namespace Game.UI
         {
             this.PubSubRegister(EventID.OnUIUpdateScore, OnUIUpdateScore);
             this.PubSubRegister(EventID.OnFinishLevel, OnFinishLevel);
-            this.PubSubRegister(EventID.OnCleanupLevel, OnCleanupLevel);
         }
 
 
@@ -84,17 +86,12 @@ namespace Game.UI
         {
             this.PubSubUnregister(EventID.OnUIUpdateScore, OnUIUpdateScore);
             this.PubSubUnregister(EventID.OnFinishLevel, OnFinishLevel);
-            this.PubSubUnregister(EventID.OnCleanupLevel, OnCleanupLevel);
         }
 
-        private void OnCleanupLevel(object obj)
-        {
-            Hide();
-        }
 
         private void OnFinishLevel(object obj)
         {
-            
+            Hide();
         }
 
         private void OnUIUpdateScore(object obj)
@@ -102,7 +99,10 @@ namespace Game.UI
             if (obj is not LevelRequirement score) return;
             var ui = _uiDict.FirstOrDefault(x => x.Key == score.jellyColor);
             ui.Value.text = score.amount.ToString();
-            ui.Value.rectTransform.DOShakeScale(.3f).SetEase(Ease.InOutExpo);
+            ui.Value.rectTransform.DOShakeScale(.3f).SetEase(Ease.InOutExpo).OnComplete(() =>
+            {
+                ui.Value.rectTransform.localScale = Vector3.one;
+            });
         }
     }
 }

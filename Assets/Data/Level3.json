@@ -1,0 +1,20 @@
+{
+  "id": 3,
+  "levelRequirements": [
+    {
+      "jellyColor": 4,
+      "amount": 8
+    }
+  ],
+  "colors": [1, 2, 3, 4, 5],
+  "spawnerCount": 1,
+  "rows": 5,
+  "columns": 3,
+  "serializedGrid": [
+    true, true, true,
+    true, true, true,
+    true, true, true,
+    true, true, true,
+    false, true, false
+  ]
+}

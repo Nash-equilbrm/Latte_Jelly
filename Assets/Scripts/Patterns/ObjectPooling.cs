@@ -94,8 +94,9 @@ namespace Patterns
             {
                 for (int i = 0; i < pool.Count; i++)
                 {
-                    pool[i].transform.SetParent(InactiveObjects);
-                    pool[i].SetActive(false);
+                    //pool[i].transform.SetParent(InactiveObjects);
+                    //pool[i].SetActive(false);
+                    RemoveToInactive(pool[i]);
                 }
             }
 

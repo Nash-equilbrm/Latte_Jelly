@@ -19,6 +19,7 @@ namespace Patterns
         OnStartGameplay,
         OnFinishCleanupGridSpawner,
         OnFinishCleanupBlockSpawner,
-        
+        OnReplayBtnClicked,
+        OnNoMoreMove,
     }
 }
