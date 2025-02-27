@@ -47,15 +47,20 @@ namespace Game.Map
 
         private void OnBlockHovering(object obj)
         {
-            if (obj is not Collider collider) return;
-            if (collider.gameObject != gameObject)
+            if (obj is null || obj is not Collider collider)
             {
-                outline.color = outlineColor;
+                if (outline != null) outline.color = outlineColor;
+                _onHover = false;
+                return;
+            }
+            else if (collider.gameObject != gameObject)
+            {
+                if(outline != null) outline.color = outlineColor;
                 _onHover = false;
             }
             else
             {
-                outline.color = outlineSelectColor;
+                if (outline != null) outline.color = outlineSelectColor;
                 _onHover = true;
             }
 
@@ -67,20 +72,6 @@ namespace Game.Map
             CurrentBlock = block;
         }
 
-        internal void OnDragging(Vector2 screenPos)
-        {
-
-            if (Vector3.SqrMagnitude(screenPos - _onScreenPosition) < 90 * 90)
-            {
-                outline.color = outlineSelectColor;
-                _onHover = true;
-            }
-            else
-            {
-                outline.color = outlineColor;
-                _onHover = false;
-            }
-        }
 
         internal void OnDragEnd(Vector2 screenPos)
         {
@@ -94,6 +85,17 @@ namespace Game.Map
             _onHover = false;
         }
 
+        internal void CleanupSlot()
+        {
+            if (outline != null) outline.color = outlineColor;
+            _onHover = false;
+            var block = CurrentBlock;
+            if(block != null)
+            {
+                Destroy(block.gameObject);
+                CurrentBlock = null;
+            }
+        }
     }
 }
 

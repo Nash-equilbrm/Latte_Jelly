@@ -1,9 +1,11 @@
 ﻿using Commons;
+using DG.Tweening;
 using Game.Config;
 using Game.Level;
 using Game.Map;
 using NaughtyAttributes;
 using Patterns;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +22,7 @@ namespace Game.Block
         [SerializeField] private string _blockTypeTag;
         [field: SerializeField] public int Height { get; private set; }
         [field: SerializeField] public int Width { get; private set; }
+        public LayerMask jellyLayerMask;
         public JellyColor[,] Colors { get => _colors; set => _colors = value; }
 
         private bool _followPlayerInput = false;
@@ -51,10 +54,21 @@ namespace Game.Block
 
         private void OnDisable()
         {
+            UnregisterEvents();
+        }
+
+        private void OnDestroy()
+        {
+            UnregisterEvents();
+        }
+
+        private void UnregisterEvents()
+        {
             InputReader.Instance.OnDragStart -= OnDragStart;
             InputReader.Instance.OnDragging -= OnDragging;
             InputReader.Instance.OnDragEnd -= OnDragEnd;
         }
+
 
         private void OnDragStart(Vector2 screenPos)
         {
@@ -91,11 +105,17 @@ namespace Game.Block
                 transform.position = Vector3.Lerp(transform.position, targetPosition, _speed * Time.deltaTime);
             }
 
-            if (Physics.Raycast(transform.position + new Vector3(1f, 0f, -1f), Camera.main.transform.forward, out RaycastHit hit, 30f))
+            if (Physics.Raycast(transform.position + new Vector3(1f, 0f, -1f), Camera.main.transform.forward, out RaycastHit hit, 30f, ~jellyLayerMask))
             {
-                if (hit.collider && hit.collider.CompareTag(Constants.SLOT_TAG))
+                if (!hit.collider) return;
+                LogUtility.Info("BlockController.Raycast", hit.collider.tag);
+                if (hit.collider.CompareTag(Constants.SLOT_TAG))
                 {
                     this.PubSubBroadcast(EventID.OnBlockHovering, hit.collider);
+                }
+                else if (hit.collider.CompareTag(Constants.PLANE_TAG))
+                {
+                    this.PubSubBroadcast(EventID.OnBlockHovering, null);
                 }
 
             }
@@ -104,7 +124,9 @@ namespace Game.Block
         private void OnDragEnd(Vector2 screenPos)
         {
             if (DroppedToSlot || !_followPlayerInput) return;
-            transform.localPosition = Vector3.zero;
+            //transform.localPosition = Vector3.zero;
+            transform.DOLocalMove(Vector3.zero, .3f).SetEase(Ease.InOutExpo);
+          
             _followPlayerInput = false;
             InputReader.Instance.OnDragging -= OnDragging;
             InputReader.Instance.OnDragEnd -= OnDragEnd;
@@ -129,16 +151,25 @@ namespace Game.Block
                 }
 
                 _subBlocks.Remove(block);
-                Destroy(block.gameObject);
-
                 ExpandAllBlocks();
             }
 
             if(_subBlocks.Count == 0)
             {
-                if(Slot != null) Slot.CurrentBlock = null;
-                ObjectPooling.Instance.GetPool(_blockTypeTag).DestroyObject(gameObject);
+                StartCoroutine(IEWaitForJellyDestroyed(block, () =>
+                {
+                    if (Slot != null) Slot.CurrentBlock = null;
+                    ObjectPooling.Instance.GetPool(_blockTypeTag).DestroyObject(gameObject);
+                    LogUtility.Info("BlockController","Destroy block");
+                }));
             }
+        }
+
+
+        private IEnumerator IEWaitForJellyDestroyed(Jelly jelly, Action callback)
+        {
+            yield return new WaitUntil(() => jelly == null);
+            callback.Invoke();
         }
 
       
@@ -174,7 +205,7 @@ namespace Game.Block
 
             List<JellyColor> availableColors = GameManager.Instance.CurrentConfig.colors.ToList();
 
-            availableColors = availableColors.OrderBy(_ => Random.value).ToList();
+            availableColors = availableColors.OrderBy(_ => UnityEngine.Random.value).ToList();
            
             for (int i = 0; i < _subBlocks.Count; i++)
             {
@@ -222,92 +253,5 @@ namespace Game.Block
         }
 
 
-
-       
-
-
-        #region Testing
-        //[Header("Testing")]
-        //public SubBlock toRemove;
-        //[Button]
-        //public void TestRemoveBlock()
-        //{
-        //    RemoveSubBlock(toRemove);
-        //}
-        //[Button]
-        //public void GenerateRandomSubBlocks()
-        //{
-        //    if (_subBlocks == null)
-        //        _subBlocks = new List<SubBlock>();
-
-        //    foreach (var sub in _subBlocks)
-        //    {
-        //        Destroy(sub.gameObject);
-        //    }
-        //    _subBlocks.Clear();
-        //    ResetColors();
-
-        //    int maxSubBlocks = Random.Range(3, 6);
-        //    int attempts = 0, maxAttempts = 100;
-
-        //    List<JellyColor> availableColors = new List<JellyColor> { JellyColor.Cyan, JellyColor.Purple, JellyColor.Green, JellyColor.Yellow };
-        //    availableColors = availableColors.OrderBy(_ => Random.value).ToList();
-
-        //    for (int i = 0; i < maxSubBlocks; i++)
-        //    {
-        //        if (i >= availableColors.Count) break;
-
-        //        int x = 0, y = 0, width = 1, height = 1;
-        //        bool validPosition = false;
-
-        //        while (!validPosition && attempts < maxAttempts)
-        //        {
-        //            attempts++;
-        //            x = Random.Range(0, Width - 1);
-        //            y = Random.Range(0, Height - 1);
-        //            width = Random.Range(1, 3);
-        //            height = Random.Range(1, 3);
-
-        //            if (x + width > Width || y + height > Height) continue;
-
-        //            validPosition = true;
-        //            for (int r = y; r < y + height; r++)
-        //            {
-        //                for (int c = x; c < x + width; c++)
-        //                {
-        //                    if (_colors[r, c] != JellyColor.None)
-        //                    {
-        //                        validPosition = false;
-        //                        break;
-        //                    }
-        //                }
-        //                if (!validPosition) break;
-        //            }
-        //        }
-
-        //        if (!validPosition) break;
-
-        //        JellyColor color = availableColors[i];
-
-        //        GameObject subBlockObj = Instantiate(subBlockPrefab, transform);
-        //        SubBlock subBlock = subBlockObj.GetComponent<SubBlock>();
-        //        subBlock.Controller = this;
-        //        subBlock.X = x;
-        //        subBlock.Y = y;
-        //        subBlock.Size = new Vector2(width, height);
-        //        subBlock.JellyColor = color;
-        //        subBlock.gameObject.name = color.ToString();
-        //        _subBlocks.Add(subBlock);
-
-        //        for (int r = y; r < y + height; r++)
-        //        {
-        //            for (int c = x; c < x + width; c++)
-        //            {
-        //                _colors[r, c] = color;
-        //            }
-        //        }
-        //    }
-        //}
-        #endregion
     }
 }

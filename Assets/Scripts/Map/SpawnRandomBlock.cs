@@ -31,11 +31,13 @@ namespace Game.Map
         private void OnEnable()
         {
             this.PubSubRegister(EventID.OnSetBlockToSlot, OnSetBlockToSlot);
+            this.PubSubRegister(EventID.OnCleanupLevel, OnCleanupLevel);
         }
 
         private void OnDisable()
         {
             this.PubSubUnregister(EventID.OnSetBlockToSlot, OnSetBlockToSlot);
+            this.PubSubUnregister(EventID.OnCleanupLevel, OnCleanupLevel);
         }
 
         private void OnSetBlockToSlot(object obj)
@@ -61,6 +63,19 @@ namespace Game.Map
                 rotation: Quaternion.identity.eulerAngles);
             randomBlock.transform.localPosition = Vector3.zero;
             _currentBlock = randomBlock.GetComponent<BlockController>();
+        }
+
+        private void OnCleanupLevel(object obj)
+        {
+            if (_currentBlock != null)
+            {
+                _currentBlock = null;
+            }
+            foreach (var tag in _blockTags)
+            {
+                ObjectPooling.Instance.GetPool(tag).DestroyAll();
+            }
+            this.PubSubBroadcast(EventID.OnFinishCleanupBlockSpawner);
         }
     }
 }

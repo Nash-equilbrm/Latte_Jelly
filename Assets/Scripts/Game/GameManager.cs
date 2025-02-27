@@ -15,7 +15,7 @@ namespace Game
         internal List<LevelConfig> LevelConfigs { get => _levelConfigs; set => _levelConfigs = value; }
 
 
-        [SerializeField] private int _currentConfigIndex;
+        [SerializeField] private int _currentConfigIndex = 0;
         public int CurrentConfigIndex
         {
             get => _currentConfigIndex;
@@ -29,6 +29,7 @@ namespace Game
         private InitState _initState;
         private InitLevelState _initLevelState;
         private GameplayState _gameplayState;
+        private CleanupLevelState _cleanupLevelState;
         #endregion
 
 
@@ -41,6 +42,7 @@ namespace Game
             _initState = new(this);
             _initLevelState = new(this);
             _gameplayState = new(this);
+            _cleanupLevelState = new(this);
 
             _stateMachine.Initialize(_initState);
         }
@@ -54,6 +56,11 @@ namespace Game
         internal void ChangeToGameplayState()
         {
             _stateMachine.ChangeState(_gameplayState);
+        }
+
+        internal void ChangeToCleanupLevelState()
+        {
+            _stateMachine.ChangeState(_cleanupLevelState);
         }
         #endregion
 

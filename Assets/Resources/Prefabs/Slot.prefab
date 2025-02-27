@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1868061316164614819}
   m_Layer: 0
   m_Name: container
-  m_TagString: Slot
+  m_TagString: slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 550481326936016669}
   m_Layer: 0
   m_Name: SlotInner
-  m_TagString: Slot
+  m_TagString: slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 4066348509431572900}
   m_Layer: 0
   m_Name: Slot
-  m_TagString: Slot
+  m_TagString: slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 3556194745528527645}
   m_Layer: 0
   m_Name: Slot
-  m_TagString: Slot
+  m_TagString: slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

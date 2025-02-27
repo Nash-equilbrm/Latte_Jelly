@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Commons;
 using Game.Block;
@@ -16,8 +17,7 @@ namespace Game.Map
         [SerializeField] private SpawnRandomBlock _blockSpawnerPrefab;
         [SerializeField] private SpawnerHorizontalLayout _spawnerHorizontalLayout;
 
-
-
+       
         internal void SpawnBlockSpawners(LevelConfig levelConfig)
         {
             if (_blockSpawners.Count < levelConfig.spawnerCount)
@@ -62,5 +62,11 @@ namespace Game.Map
             return res;
 
         }
+
+        internal void CleanupGrid()
+        {
+            ObjectPooling.Instance.GetPool(Constants.SLOT_TAG).RecycleAll();
+        }
+
     }
 }

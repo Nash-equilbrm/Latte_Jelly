@@ -10,6 +10,7 @@ namespace Game.Config
         public static int MAX_ROWS = 2;
         public static int MAX_COLUMNS = 2;
         public static Vector2 CELL_SIZE = new (2,2);
+        public static string PLANE_TAG = "plane";
 
 
         public static string SLOT_TAG = "slot";

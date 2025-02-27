@@ -4,6 +4,7 @@ using Game.Level;
 using Commons;
 using System;
 using System.Collections.Generic;
+using Patterns;
 
 namespace Game.Block
 {
@@ -18,6 +19,7 @@ namespace Game.Block
 
         [SerializeField] private GameObject _cube;
         [SerializeField] private Renderer _cubeRenderer;
+        public LayerMask jellyLayerMask;
         private float _raycastDistance = 1f;
 
         public bool Expanding { get; set; }
@@ -101,8 +103,8 @@ namespace Game.Block
             float newCenterX = X + (Size.x / 2f);
             float newCenterZ = -(Y + (Size.y / 2f));
 
-            _cube.transform.DOScale(new Vector3(Size.x, 1, Size.y), 0.2f).SetEase(Ease.OutBack);
-            _cube.transform.DOLocalMove(new Vector3(newCenterX, 0, newCenterZ), 0.2f).SetEase(Ease.OutBack).OnComplete(() =>
+            _cube.transform.DOScale(new Vector3(Size.x, 1, Size.y), 1f).SetEase(Ease.InOutExpo);
+            _cube.transform.DOLocalMove(new Vector3(newCenterX, 0, newCenterZ), 1f).SetEase(Ease.InOutExpo).OnComplete(() =>
             {
                 Expanding = false;
             });
@@ -143,10 +145,16 @@ namespace Game.Block
         {
             if (_cube != null)
             {
-                _cube.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
-                {
-                    Destroy(_cube);
-                });
+                var self = this;
+                DOTween.Sequence()
+                    .Join(_cube.transform.DOLocalMove(_cube.transform.localPosition + new Vector3(0f, 1f, 1f),1f).SetEase(Ease.InOutExpo))
+                    .Join(_cube.transform.DOScale(Vector3.one * 0.3f, 1f).SetEase(Ease.InOutExpo))
+                    .OnComplete(() =>
+                    {
+                        //Destroy(_cube);
+                        self.PubSubBroadcast(EventID.OnDestroyJelly, JellyColor);
+                        Destroy(gameObject);
+                    });
             }
         }
 
@@ -180,7 +188,7 @@ namespace Game.Block
                 {
                     Debug.DrawRay(positionToRaycast, directions[i] * _raycastDistance, Color.red, 1f);
 
-                    if (Physics.Raycast(positionToRaycast, directions[i], out RaycastHit hit, _raycastDistance))
+                    if (Physics.Raycast(positionToRaycast, directions[i], out RaycastHit hit, _raycastDistance, jellyLayerMask))
                     {
                         
                         if (hit.collider.gameObject != gameObject 
@@ -190,7 +198,6 @@ namespace Game.Block
                             Jelly otherJelly = hit.collider.transform.parent.parent.GetComponent<Jelly>();
                             if (otherJelly != null && otherJelly.JellyColor == JellyColor)
                             {
-                                LogUtility.NotificationInfo("CheckRaycast", $"Result: {hit.collider.transform.parent.name}");
                                 matchingJellies.Add(otherJelly);
                             }
                         }

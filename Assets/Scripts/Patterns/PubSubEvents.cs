@@ -11,6 +11,14 @@ namespace Patterns
         OnSetBlockToSlot,
         OnDropToSlot,
         OnBlockSelected,
-        OnBlockHovering
+        OnBlockHovering,
+        OnDestroyJelly,
+        OnUIUpdateScore,
+        OnFinishLevel,
+        OnCleanupLevel,
+        OnStartGameplay,
+        OnFinishCleanupGridSpawner,
+        OnFinishCleanupBlockSpawner,
+        
     }
 }

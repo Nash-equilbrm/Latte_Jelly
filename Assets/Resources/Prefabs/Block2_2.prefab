@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8815340188441977336}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: JellyBlock
   m_TagString: Jelly
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3412729969092334778}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: JellyBlock
   m_TagString: Jelly
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2753474590886252654}
   - component: {fileID: 2727398533845745621}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Jelly
   m_TagString: Jelly
   m_Icon: {fileID: 0}
@@ -116,7 +116,9 @@ MonoBehaviour:
   <Y>k__BackingField: 0
   _cube: {fileID: 3935476642586651706}
   _cubeRenderer: {fileID: 8786253697206321827}
-  _raycastDistance: 2
+  jellyLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &5732582183610623572
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3522523658746624741}
   - component: {fileID: 9149314618605737510}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Jelly
   m_TagString: Jelly
   m_Icon: {fileID: 0}
@@ -169,7 +171,9 @@ MonoBehaviour:
   <Y>k__BackingField: 0
   _cube: {fileID: 11839961103734227}
   _cubeRenderer: {fileID: 3662437651649686865}
-  _raycastDistance: 2
+  jellyLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &8350640320352547837
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +185,7 @@ GameObject:
   - component: {fileID: 5975042726178317358}
   - component: {fileID: 2544824151827690137}
   - component: {fileID: -2033541154596437878}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Block2_2
   m_TagString: Jelly
   m_Icon: {fileID: 0}
@@ -224,6 +228,9 @@ MonoBehaviour:
   _blockTypeTag: block2_2
   <Height>k__BackingField: 2
   <Width>k__BackingField: 2
+  jellyLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
   <DroppedToSlot>k__BackingField: 0
 --- !u!65 &-2033541154596437878
 BoxCollider:
@@ -333,6 +340,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: jellyCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
@@ -503,6 +515,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: jellyCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4c7a8a980a7e4bf469a383fd371318d8,
         type: 3}
